@@ -6,8 +6,8 @@ plugins {
 }
 
 android {
-    compileSdkVersion rootProject.targetSdkVersion
-    buildToolsVersion "31.0.0"
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "es.blackdevice.marveltest"
@@ -17,6 +17,19 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        def baseUrl = "https://gateway.marvel.com/v1/public"
+        def privateKey = "86e96b93561950cce75f7e890e157807f753708d"
+        def publicKey = "f2c53ee9f2e68eb332d0a4cf5f88f06c"
+
+        buildConfigField("String",
+                "BASE_URL_MARVEL",
+                "\"${baseUrl}\"")
+        buildConfigField("String",
+                "PUBLIC_KEY",
+                "\"${publicKey}\"")
+        buildConfigField("String",
+                "PRIVATE_KEY",
+                "\"${privateKey}\"")
     }
 
     buildTypes {
