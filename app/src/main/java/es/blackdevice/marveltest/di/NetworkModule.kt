@@ -2,6 +2,7 @@ package es.blackdevice.marveltest.di
 
 import android.os.Build
 import es.blackdevice.marveltest.data.remote.CharacterApi
+import es.blackdevice.marveltest.data.remote.NetworkDataSource
 import es.blackdevice.marveltest.data.remote.interceptors.AuthInterceptor
 import es.blackdevice.marveltest.utils.Constants
 import okhttp3.OkHttpClient
@@ -42,4 +43,5 @@ val networkModule = module {
     }
 
     single { get<Retrofit>().create(CharacterApi::class.java) }
+    single { NetworkDataSource(api = get()) }
 }
