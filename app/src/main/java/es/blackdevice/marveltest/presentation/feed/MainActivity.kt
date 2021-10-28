@@ -2,6 +2,8 @@ package es.blackdevice.marveltest.presentation.feed
 
 import android.util.Log
 import android.view.LayoutInflater
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import es.blackdevice.marveltest.databinding.ActivityMainBinding
 import es.blackdevice.marveltest.utils.BindingActivity
 import es.blackdevice.marveltest.utils.observe
@@ -14,9 +16,19 @@ class MainActivity : BindingActivity<ActivityMainBinding>() {
 
     private val viewModel: MainViewModel by viewModel()
 
+    private val adapter: CharacterAdapter by lazy { CharacterAdapter { characterId ->
+            Log.i("MAinActivity", "ID Character -> $characterId")
+        }
+    }
+
     override fun setupViews() {
+        with(binding) {
+            rvCharacter.layoutManager = GridLayoutManager(this@MainActivity,2, RecyclerView.VERTICAL,false)
+            rvCharacter.adapter = adapter
+        }
+
         viewModel.getCharacters.observe(this, isLatest = true) {
-            Log.d("MainActivity", "setupViews: $it")
+            adapter.submitData(it)
         }
     }
 
