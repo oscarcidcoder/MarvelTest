@@ -11,13 +11,13 @@ import retrofit2.http.Query
  */
 interface CharacterApi {
 
-    @GET("/characters")
+    @GET("characters")
     suspend fun getCharacters(
           @Query("limit") limit: Int = 20,
           @Query("offset") offset: Int = 0
     ): Response<MarvelWrapper>
 
-    @GET("/characters/{characterId}")
-    suspend fun getCharacter(@Path("characterId") characterId: String): Response<MarvelWrapper>
+    @GET("characters/{characterId}")
+    suspend fun getCharacter(@Path("characterId") characterId: Int): Response<MarvelWrapper>
 
 }

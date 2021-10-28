@@ -5,9 +5,9 @@ package es.blackdevice.marveltest.data.entity
  */
 data class Character(
     val id: Int,
-     val name: String,
-     val description: String,
-     val thumbnail: Thumbnail,
-     val resourceURI: String,
-     val urls: List<URL>
+    val name: String,
+    val description: String,
+    val thumbnail: Thumbnail,
+    val resourceURI: String,
+    val urls: List<URL>
  )
