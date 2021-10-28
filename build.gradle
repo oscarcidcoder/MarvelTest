@@ -11,6 +11,7 @@ buildscript {
 
         material_version = '1.4.0'
         ktx_core = '1.6.0'
+        paging_version = '3.0.0'
 
         retrofit_version = '2.9.0'
         okhttp_version = '4.2.1'

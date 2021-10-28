@@ -17,7 +17,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        def baseUrl = "https://gateway.marvel.com/v1/public"
+        def baseUrl = "https://gateway.marvel.com/v1/public/"
         def privateKey = "86e96b93561950cce75f7e890e157807f753708d"
         def publicKey = "f2c53ee9f2e68eb332d0a4cf5f88f06c"
 
@@ -79,6 +79,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.lifecycle_version"
+
+    // Paging
+    implementation "androidx.paging:paging-runtime:$rootProject.paging_version"
 
     // Fragments
     implementation "androidx.fragment:fragment-ktx:$rootProject.fragment_ktx_version"
