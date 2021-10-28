@@ -7,6 +7,7 @@ import es.blackdevice.marveltest.data.entity.Character
 import es.blackdevice.marveltest.data.remote.NetworkDataSource
 import es.blackdevice.marveltest.domain.repository.CharacterRepository
 import es.blackdevice.marveltest.utils.Result
+import es.blackdevice.marveltest.utils.convertIfSuccess
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -21,7 +22,9 @@ class CharacterRepositoryImpl(private val remoteDataSource: NetworkDataSource) :
     ).flow
 
     override suspend fun getCharacter(characterID: Int): Result<Character> {
-        TODO("Not yet implemented")
+        return remoteDataSource.getCharacter(characterID).convertIfSuccess {
+            it.first()
+        }
     }
 
 
