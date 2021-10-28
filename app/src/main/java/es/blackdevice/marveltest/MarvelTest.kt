@@ -3,6 +3,8 @@ package es.blackdevice.marveltest
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import es.blackdevice.marveltest.di.networkModule
+import es.blackdevice.marveltest.di.repositoryModule
+import es.blackdevice.marveltest.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -19,6 +21,8 @@ class MarvelTest : Application() {
         startKoin {
             androidContext(this@MarvelTest)
             modules(networkModule)
+            modules(repositoryModule)
+            modules(viewModelModule)
         }
     }
 
