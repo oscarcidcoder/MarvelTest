@@ -6,6 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 /**
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 @PublishedApi
 internal class ObserverImpl<T> (
         lifecycleOwner: LifecycleOwner,
+        private val isLatest: Boolean = false,
         private val flow: Flow<T>,
         private val collector: suspend (T) -> Unit
 ) : DefaultLifecycleObserver {
@@ -27,8 +29,14 @@ internal class ObserverImpl<T> (
 
     override fun onStart(owner: LifecycleOwner) {
         actualJob = owner.lifecycleScope.launch {
-            flow.collect {
-                collector(it)
+            if (isLatest) {
+                flow.collectLatest {
+                    collector(it)
+                }
+            } else {
+                flow.collect {
+                    collector(it)
+                }
             }
         }
     }
@@ -75,13 +83,15 @@ class YourActivity : AppCompatActivity() {
 
 inline fun <reified T> Flow<T>.observe(
         lifecycleOwner: LifecycleOwner,
+        isLatest: Boolean = false,
         noinline collector: suspend (T) -> Unit
 ) {
-    ObserverImpl(lifecycleOwner, this, collector)
+    ObserverImpl(lifecycleOwner, isLatest,this, collector)
 }
 
 inline fun <reified T> Flow<T>.observeIn(
-        lifecycleOwner: LifecycleOwner
+        lifecycleOwner: LifecycleOwner,
+        isLatest: Boolean = false,
 ) {
-    ObserverImpl(lifecycleOwner, this, {})
+    ObserverImpl(lifecycleOwner,isLatest, this, {})
 }
