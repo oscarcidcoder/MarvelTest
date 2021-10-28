@@ -6,4 +6,7 @@ package es.blackdevice.marveltest.data.entity
 data class Thumbnail(
     val path: String,
     val extension: String
- )
+ ) {
+    val fullPath: String
+        get() = "$path.$extension"
+}
