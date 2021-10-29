@@ -1,0 +1,5 @@
+<resources>
+    <string name="name">Nombre:</string>
+    <string name="description">Descripción:</string>
+    <string name="detail_title">Detalle</string>
+</resources>
