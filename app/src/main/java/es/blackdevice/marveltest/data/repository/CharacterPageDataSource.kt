@@ -4,7 +4,6 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import es.blackdevice.marveltest.data.entity.Character
 import es.blackdevice.marveltest.data.remote.NetworkDataSource
-import java.net.HttpURLConnection
 
 /**
  * Data source for pagination
@@ -15,27 +14,23 @@ class CharacterPageDataSource(private val remoteDataSource: NetworkDataSource) :
     private var currentPage = 0
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
-        val nextPage = params.key ?: currentPage
+        val position = params.key ?: currentPage
+        val offset = if (params.key != null) (position  * params.loadSize) else currentPage
+
         return try {
-            val response = remoteDataSource.getCharacters(nextPage)
-            /*if (response.isSuccessful) {
+            val response = remoteDataSource.getCharacters(offset)
+            if (response.isSuccessful) {
                 val body = response.body()
 
                 val data = body?.data?.results.orEmpty()
-                return LoadResult.Page(
+                LoadResult.Page(
                     data = data,
-                    prevKey = if (nextPage == 0) null else nextPage - 1,
+                    prevKey = null,
                     nextKey = if (data.isEmpty()) null else currentPage + 1
                 ).also { currentPage++ }
-            }*/
-            val body = response.body()
-
-            val data = body?.data?.results.orEmpty()
-            LoadResult.Page(
-                data = data,
-                prevKey = if (nextPage == 0) null else nextPage - 1,
-                nextKey = if (data.isEmpty()) null else currentPage + 1
-            ).also { currentPage++ }
+            } else {
+                LoadResult.Error(Throwable(response.message()))
+            }
         } catch (ex: Exception) {
             LoadResult.Error(throwable = ex)
         }

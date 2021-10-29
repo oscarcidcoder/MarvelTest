@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.Flow
 class CharacterRepositoryImpl(private val remoteDataSource: NetworkDataSource) : CharacterRepository {
 
     override fun getCharacters(offset: Int): Flow<PagingData<Character>> = Pager(
-        config = PagingConfig(pageSize = offset, prefetchDistance = 2),
+        config = PagingConfig(pageSize = offset, prefetchDistance = 4),
         pagingSourceFactory = { CharacterPageDataSource(remoteDataSource) }
     ).flow
 
