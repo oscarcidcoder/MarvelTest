@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.detail.DetailActivity" />
+        <activity android:name=".presentation.detail.DetailActivity" android:label="@string/detail_title" />
 
     </application>
 
