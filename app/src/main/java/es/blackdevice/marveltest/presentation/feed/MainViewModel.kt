@@ -7,7 +7,9 @@ import androidx.paging.cachedIn
 import es.blackdevice.marveltest.domain.use_case.CharacterUseCases
 import kotlinx.coroutines.flow.Flow
 import es.blackdevice.marveltest.data.entity.Character
+import es.blackdevice.marveltest.presentation.detail.FeedCharacterEvent
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 /**
